@@ -59,7 +59,6 @@ so these are the folders/files to keep
 
 [Can i delete the intermediate folder? : r/unrealengine](https://www.reddit.com/r/unrealengine/comments/9xaiix/can_i_delete_the_intermediate_folder/)
 
-
 ### Clean Project directory using batch File
 
 ```bat
@@ -70,6 +69,7 @@ del /q /f .vsconfig, MySolution.sln
 echo All files are deleted successfully.
 pause
 ```
+
 Here's a breakdown of the commands:
 
 - @echo off: Disables the display of each command in the batch file while it's running.
@@ -92,7 +92,6 @@ As you can see from the above explanation:
 
 No matter what you do, **DO NOT DELETE  
 Config, Content, Source folders and .uproject file -> THESE ARE MANDATORY !!!**
-
 
 [Clean Project directory using batch File | Epic Developer Community](https://dev.epicgames.com/community/learning/tutorials/l7rR/unreal-engine-clean-project-directory-using-batch-file)
 
@@ -210,7 +209,7 @@ Plugins/**/Intermediate/*
 DerivedDataCache/*
 ```
 
-### Error code (Use Ctrl+F) 
+### Error code (Use Ctrl+F)
 
 #### MSB3073 code 6
 
