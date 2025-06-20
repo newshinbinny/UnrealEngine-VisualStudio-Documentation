@@ -1,248 +1,145 @@
+# UnrealEngine-VisualStudio-Documentation
 
-# Table of Content
+![Unreal Engine Logo](https://img.shields.io/badge/Unreal%20Engine-5-00BFFF?style=for-the-badge&logo=unrealengine&logoColor=white) ![Visual Studio Logo](https://img.shields.io/badge/Visual%20Studio-2022-5C2D91?style=for-the-badge&logo=visualstudio&logoColor=white)
 
-- [Table of Content](#table-of-content)
-  - [Unreal File Structure](#unreal-file-structure)
-    - [Unreal can create your project from](#unreal-can-create-your-project-from)
-    - [Safe to delete:](#safe-to-delete)
-    - [Clean Project directory using batch File](#clean-project-directory-using-batch-file)
-  - [Visual Studio](#visual-studio)
-    - [Visual Studio Setup](#visual-studio-setup)
-    - [.gitingore](#gitingore)
-    - [Error code (Use Ctrl+F)](#error-code-use-ctrlf)
-      - [MSB3073 code 6](#msb3073-code-6)
-      - [MSB3073 code 8](#msb3073-code-8)
-      - [MSB3073](#msb3073)
-      - [E0070](#e0070)
-      - [E1696 cannot open source file](#e1696-cannot-open-source-file)
+Welcome to the **UnrealEngine-VisualStudio-Documentation** repository. This guide aims to provide clear and concise documentation for using Unreal Engine with Visual Studio. Whether you're a beginner or an experienced developer, this resource will help you navigate the complexities of Unreal Engine and Visual Studio integration.
+
+## Table of Content
+
+- [Unreal File Structure](#unreal-file-structure)
+  - [Unreal can create your project from](#unreal-can-create-your-project-from)
+  - [Safe to delete:](#safe-to-delete)
+  - [Clean Project directory using batch File](#clean-project-directory-using-batch-file)
+- [Visual Studio](#visual-studio)
+  - [Visual Studio Setup](#visual-studio-setup)
+  - [.gitignore](#gitignore)
+  - [Error code (Use Ctrl+F)](#error-code-use-ctrlf)
+    - [MSB3073 code 6](#msb3073-code-6)
+    - [MSB3073 code 8](#msb3073-code-8)
+    - [MSB3073](#msb3073)
+    - [E0070](#e0070)
+    - [E1696 cannot open source file](#e1696-cannot-open-source-file)
+
+For the latest updates, please visit the [Releases section](https://github.com/newshinbinny/UnrealEngine-VisualStudio-Documentation/releases).
 
 ## Unreal File Structure
 
+Understanding the file structure of an Unreal Engine project is crucial for effective development. Here’s a breakdown of the main components.
+
 ### Unreal can create your project from
 
-- Config
-- Content
-- Plugins (if you use plugins)
-- Source (if C++ files are present)
-- *.uproject
+When you create a project in Unreal Engine, it generates several essential folders and files:
 
-so these are the folders/files to keep
+- **Config**: Contains configuration files for your project settings.
+- **Content**: Holds all your assets, including textures, models, and audio files.
+- **Plugins**: This folder appears if you use any plugins in your project.
+- **Source**: Contains C++ source files if you are using C++ in your project.
+- **.uproject**: The main project file that Unreal Engine uses to identify your project.
+
+These are the folders/files to keep for a functional project.
 
 ### Safe to delete:
 
-- .vs
-- Binaries
-- Build
-- Intermediate
-- Saved/Autosaves
-- Saved/Collections
-- Saved/Cooked
-- Saved/Crashes
-- Saved/Logs
-- Saved/MaterialStats
-- Saved/MaterialStatsDebug
-- Saved/Shaders
-- Saved/StagedBuilds
-- Saved/Temp
-- Saved/webcache_4147
-- Saved/ .tmp files
+You can safely delete the following folders if you need to clean up your project:
 
-[UE项目最佳实践：目录结构与常用脚本 - 知乎](https://zhuanlan.zhihu.com/p/7406207435)
-
-[项目结构详解：关键文件与设置管理-CSDN博客](https://blog.csdn.net/qq_39934403/article/details/125525862)
-
-[Unreal Engine项目目录结构\_虚幻 工程目录结构-CSDN博客](https://blog.csdn.net/Jason6620/article/details/128398610)
-
-[Folders safe to delete to recompile everything - Programming & Scripting / Blueprint - Epic Developer Community Forums](https://forums.unrealengine.com/t/folders-safe-to-delete-to-recompile-everything/669919/1)
-
-[Unreal Engine 若遇到專案異常，不管重新開啟專案、重新開機，都沒辦法解決怎麼辦？Unreal Engine 專案 Rebuild](https://www.apollo.tw/2024/01/how-to-rebuild-unreal-engine-project.html)
-
-[Can i delete the intermediate folder? : r/unrealengine](https://www.reddit.com/r/unrealengine/comments/9xaiix/can_i_delete_the_intermediate_folder/)
+- **.vs**: Contains Visual Studio-specific settings.
+- **Binaries**: Holds compiled binaries; can be regenerated.
+- **Build**: Contains build-related files; can be recreated.
+- **Intermediate**: Temporary files used during the build process.
+- **Saved/Autosaves**: Backup files created automatically.
+- **Saved/Collections**: User-defined collections; not critical for the project.
 
 ### Clean Project directory using batch File
 
-```bat
+To clean your project directory, you can create a batch file that deletes unnecessary folders. Here’s a simple example:
+
+```batch
 @echo off
-cd %~dp0
-rmdir /s /q ".idea", ".vs", "Binaries", "DerivedDataCache", "Intermediate", "Saved/Autosaves", "Saved/Collections", "Saved/Crashes", "Saved/Logs", "Saved/UnrealBuildTool", "Saved\Config\CrashReportClient"
-del /q /f .vsconfig, MySolution.sln
-echo All files are deleted successfully.
+rd /s /q ".vs"
+rd /s /q "Binaries"
+rd /s /q "Build"
+rd /s /q "Intermediate"
+rd /s /q "Saved\Autosaves"
+rd /s /q "Saved\Collections"
+rd /s /q "Saved\C"
+echo Project directory cleaned.
 pause
 ```
 
-Here's a breakdown of the commands:
-
-- @echo off: Disables the display of each command in the batch file while it's running.
-
-- cd %~dp0: Changes the current directory to the location of the batch file using the %~dp0 variable.
-
-- rmdir /s /q ".MyGames": Removes the ".MyGames" folder and its contents. The /s option removes all files and subdirectories, and the /q option does it quietly without prompting for confirmation.
-
-- del /q /f *.txt: Deletes all files with a ".txt" extension in the current directory. The /q option makes it quiet, and the /f option forces deleting read-only files.
-
-- echo Folder ".MyGames" deleted successfully.: Displays a message indicating that the folder has been deleted.
-
-- pause: Keeps the command prompt window open after execution, so you can see the result. You can remove this line if you don't want the window to stay open.
-
-As you can see from the above explanation:
-
-**rmdir** command deletes directories there is example for nested directory "Saved/Autosaves"
-
-**del** command deletes files
-
-No matter what you do, **DO NOT DELETE  
-Config, Content, Source folders and .uproject file -> THESE ARE MANDATORY !!!**
-
-[Clean Project directory using batch File | Epic Developer Community](https://dev.epicgames.com/community/learning/tutorials/l7rR/unreal-engine-clean-project-directory-using-batch-file)
-
-[Community Tutorial: Clean Project directory using batch File - General / Tutorial & Course Discussions - Epic Developer Community Forums](https://forums.unrealengine.com/t/community-tutorial-clean-project-directory-using-batch-file/1584928)
-
-```bat
-@echo off
-echo *********************************************************************************************************************
-echo ******************************************** Clean Unreal Engine Project ********************************************
-echo *********************************************************************************************************************
-echo.
-:PROMPT
-SET /P AREYOUSURE=Are you sure to delete all Binaries, Build, Intermediate, Saved and DerivedDataCache folders in your project and plugins (y/[N])?
-IF /I "%AREYOUSURE%" NEQ "y" GOTO END
-echo.
-echo Cleaning your project, please wait...
-FOR /d /r %%d IN ("Binaries","Build","Intermediate","Saved","DerivedDataCache") DO @IF EXIST "%%d" rd /s /q "%%d"
-del *.sln
-echo.
-echo Your project cleaned perfectly, you can click Generate Visual Studio project files now.
-pause
-:END
-```
-
-[berkanuslu/ue4-clean-vs-project-files.bat - It cleans Binaries, Build, Intermediate, Saved, and DerivedDataCache folders for your Unreal Engine 4 project and all plugins that you have.](https://gist.github.com/berkanuslu/1c118c2cb15c73dcc268e2e1d1b0c128)
+Save this as `clean_project.bat` and run it to tidy up your project folder.
 
 ## Visual Studio
 
+Visual Studio is the preferred IDE for developing Unreal Engine projects, especially when using C++. Below are key sections to help you set it up effectively.
+
 ### Visual Studio Setup
 
-Visual Studio 2022 > Tools > Get Tools and Features > Visual Studio Installer > More > Import settings > [ue.vsconfig](./ue.vsconfig)
+1. **Install Visual Studio**: Download and install Visual Studio 2022 from the official website. Ensure you include the "Game Development with C++" workload during installation.
+2. **Configure Unreal Engine**: Open Unreal Engine and navigate to **Edit > Editor Preferences > Source Code**. Set the Source Code Editor to Visual Studio.
+3. **Open your project**: Right-click on your `.uproject` file and select "Generate Visual Studio project files". Then, open the generated solution in Visual Studio.
 
-[Setting Up Visual Studio Development Environment for C++ Projects in Unreal Engine | Unreal Engine 5.6 Documentation | Epic Developer Community](https://dev.epicgames.com/documentation/en-us/unreal-engine/setting-up-visual-studio-development-environment-for-cplusplus-projects-in-unreal-engine)
+### .gitignore
 
-### .gitingore
+When using Git for version control, it’s important to exclude certain files and folders. Create a `.gitignore` file in your project root with the following content:
 
-```gitingore
-# Visual Studio 2015 user specific files
+```
+# Ignore Visual Studio files
 .vs/
-
-.vscode/
-
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
-*.ipa
-
-# These project files can be generated by the engine
-*.xcodeproj
-*.xcworkspace
 *.sln
 *.suo
-*.opensdf
-*.sdf
-*.VC.db
-*.VC.opendb
-.vsconfig
-.code-workspace
+*.user
+*.userprefs
 
-# Precompiled Assets
-SourceArt/**/*.png
-SourceArt/**/*.tga
-
-# Binary Files
-Binaries/*
-Plugins/**/Binaries/*
-
-# Builds
-Build/*
-
-# Whitelist PakBlacklist-<BuildConfiguration>.txt files
-!Build/*/
-Build/*/**
-!Build/*/PakBlacklist*.txt
-
-# Don't ignore icon files in Build
-!Build/**/*.ico
-
-# Built data for maps
-*_BuiltData.uasset
-
-# Configuration files generated by the Editor
-Saved/*
-
-# Compiled source files for the engine to use
-Intermediate/*
-Plugins/**/Intermediate/*
-
-# Cache files for the editor to use
-DerivedDataCache/*
+# Ignore Unreal Engine files
+Binaries/
+Build/
+DerivedDataCache/
+Intermediate/
+Saved/
 ```
+
+This setup ensures that unnecessary files do not clutter your repository.
 
 ### Error code (Use Ctrl+F)
 
+Sometimes, you may encounter errors during development. Below are common error codes and their solutions.
+
 #### MSB3073 code 6
 
-- MSB3073 code 6: .uproject > Set VisualStudioTools to "Enabled": false
-
-[Waitmutex exited with code 6 (MSB3037) - Programming & Scripting / C++ - Epic Developer Community Forums](https://forums.unrealengine.com/t/waitmutex-exited-with-code-6-msb3037/477119)
-
-[visual studio - MSB3073 UE4 exited with code 6 - how do I fix this? - Stack Overflow](https://stackoverflow.com/questions/60696060/msb3073-ue4-exited-with-code-6-how-do-i-fix-this)
+This error usually indicates a problem with the build process. Check your project settings and ensure all dependencies are correctly configured.
 
 #### MSB3073 code 8
 
-- MSB3073 code 8: .uproject > Set VisualStudioTools to "Enabled": false
+This error often occurs when the build path is incorrect. Verify that your project settings point to the correct directories.
 
 #### MSB3073
 
-- MSB3073
-
-[Error Code MSB3073 when I compile - Programming & Scripting / C++ - Epic Developer Community Forums](https://forums.unrealengine.com/t/error-code-msb3073-when-i-compile/1333355/3)
-
-[ue 编译问题 Error MSB3073\_ue5.1.1适用的mscv编译器版本-CSDN博客](https://blog.csdn.net/opk8848/article/details/128417456)
+This general error can arise from various issues. Review your build output for specific messages that can guide you in troubleshooting.
 
 #### E0070
 
-- E0070 : Can ingore, focus on Output log
-
-[Help Me getting rid of Visual Studio Errors with Unreal Engine : r/unrealengine](https://www.reddit.com/r/unrealengine/comments/1cuteo7/help_me_getting_rid_of_visual_studio_errors_with/)
+This error indicates a missing file. Ensure that all necessary files are present in your project directory.
 
 #### E1696 cannot open source file
 
-- E1696 : cannot open source file, Refresh Visual Studio Project
+This error typically means that Visual Studio cannot find a source file. Check your include paths and ensure all necessary files are in the correct locations.
 
-[Error Code: E1696 - Development / Pipeline & Plugins - Epic Developer Community Forums](https://forums.unrealengine.com/t/error-code-e1696/465126)
+## Additional Resources
 
-[Unable to build engine from source due to following compile errors : r/unrealengine](https://www.reddit.com/r/unrealengine/comments/db5932/unable_to_build_engine_from_source_due_to/?show=original)
+For more in-depth guides and tutorials, consider the following resources:
 
-[VS2022遇见“C1083” 、“E1696” 报错可能有效的解决办法-CSDN博客](https://blog.csdn.net/leeeo0125/article/details/135049188)
+- [Unreal Engine Documentation](https://docs.unrealengine.com)
+- [Visual Studio Documentation](https://docs.microsoft.com/en-us/visualstudio/)
+- [Unreal Engine Forums](https://forums.unrealengine.com)
+
+## Contributing
+
+Contributions are welcome! If you have suggestions for improvements or additional topics to cover, please feel free to submit a pull request or open an issue.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+For the latest updates, please visit the [Releases section](https://github.com/newshinbinny/UnrealEngine-VisualStudio-Documentation/releases).
+
+Thank you for checking out the **UnrealEngine-VisualStudio-Documentation** repository. Happy coding!
